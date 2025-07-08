@@ -1,16 +1,11 @@
 void main() {
-  String a = 'banana';
+  // TODO: 구구단 1단 만들기
+  var dan = 1;
+  var count = 1;
+  var result = 0;
 
-  // TODO: switch 문을 if else 문으로 변경해보자.
-  switch (a) {
-    case '1':
-      print("object");
-      break;
-    case 'apple':
-      print("apple!");
-      break;
-    default:
-      print("no cases");
-      break;
+  for (count = 1; count <= 9; count++) {
+    result = count * dan;
+    print("$dan x $count = $result");
   }
 }
