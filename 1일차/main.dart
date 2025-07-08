@@ -3,7 +3,7 @@
 void main() {
   // 정수형 변수 선언
   int num1 = 4;
-  print(num1);
+  print(num1); //
 
   // 실수형
   double num2 = 1.1234;
