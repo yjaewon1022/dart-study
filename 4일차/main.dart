@@ -1,9 +1,13 @@
 class Integer {
   late int _value;
 
-  Integer([int givenNumber = 0]) {
-    _value = givenNumber;
-  }
+  // // 생성자를 만드는 방법 1.
+  // Integer([int givenNumber = 0]) {
+  //   _value = givenNumber;
+  // }
+
+  // 생성자를 만드는 방법 2.
+  Integer([int givenValue = 0]) : _value = givenValue;
 
   int get() {
     return _value;
@@ -56,17 +60,43 @@ class Integer {
     return result2;
   }
 
-  // 심화: 나누기가 함수 이름이 되는 함수
+  String get asString => "$_value";
+}
+
+// extends = 다음으로 적힐 클래스명에 있는 모든 내용들을 가져올거야.
+// class newInteger extends 클래스명 {}
+class newInteger extends Integer {
+  // List<자료형> = 이 자료형에 속하는 데이터만 이 리스트에 담을거야.
+  List<int> _list = []; // [0]
+
+  newInteger([int givenValue = 0]) {
+    _value = givenValue;
+  }
+
+  @override // Integer 클래스에 있는 코드에서 이 기능들을 더 추가해서 쓸거야.
+  void set(int givenValue) {
+    _list.add(_value); // _value = 2
+
+    // super = 우리가 클래스를 생성할 때 extends 뒤에 쓴 클래스 를 지칭함.
+    super.set(givenValue);
+  }
+
+  @override
+  String get asString => "현재 값: $_value, 기존에 지정했었던 값들: $_list";
+
+  List getOld() {
+    return _list;
+  }
 }
 
 void main() {
-  var num1 = Integer(5);
-  var num2 = Integer(10);
-  var num3 = num1 + num2;
-  var num4 = num1 - num2;
-  var num5 = num1 * num2;
+  var newNum1 = newInteger(); // newNum1 = 0;
 
-  print(num3.get());
-  print(num4.get());
-  print(num5.get());
+  newNum1.set(9); // newNum = 9; _list = [0]
+  newNum1.changeInteger = 2; // newNum = 2; _list = [0]
+  print(newNum1.get());
+
+  newNum1.set(10); // newNum1 = 10; _list = [0, 2]
+  print(newNum1.getOld());
+  print(newNum1.asString);
 }
