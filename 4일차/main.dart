@@ -1,76 +1,43 @@
-class Integer {
-  late int _value;
-
-  Integer([int givenNumber = 0]) {
-    _value = givenNumber;
-  }
-
-  int get() {
-    return _value;
-  }
-
-  void set(int givenNumber) {
-    _value = givenNumber;
-  }
-
-  String get returnString => "$_value";
-
-  set changeInteger(int givenNumber) => _value = givenNumber;
-
-  Integer operator +(Integer givenValue) {
-    return Integer(_value + givenValue.get());
-  }
-
-  String get asString => "$_value";
+// 여러 클래스들이 공통적으로 가지고 있는 기능이지만,
+// 각 클래스들마다 미세하게 작동하는 부분이 다른 경우
+// 이런 기능이 있다 라고 작성만 하는 것
+abstract class Rectangle {
+  void draw();
 }
 
-mixin ActivationFlag on Integer {
-  bool _flag = true;
+class Circle implements Rectangle {
+  late int radius;
 
-  bool get activated => _flag;
-  set activated(bool givenFlag) => (_flag = givenFlag);
+  @override
+  void draw() {
+    print(" radius가 $radius 인 원을 그립니다.");
+  }
+
+  Circle([int givenRadius = 1]) {
+    radius = givenRadius;
+  }
 }
 
-class ADFSFDSFAF {}
-
-class newInteger extends Integer with ActivationFlag {
-  List<int> _list = [];
-
-  newInteger([int givenValue = 0]) {
-    _value = givenValue;
-  }
+class Square implements Rectangle {
+  late int garo, sero;
 
   @override
-  void set(int givenValue) {
-    if (activated == true) {
-      _list.add(_value);
-      print("set 함수 실행함. 현재 저장된 결과는 $_list 임");
-    } else {
-      print("set 함수 실행 안함.");
-    }
-
-    super.set(givenValue);
+  void draw() {
+    print("가로가 $garo, 세로가 $sero 인 사각형을 그립니다.");
   }
 
-  @override
-  String get asString => "현재 값: $_value, 기존에 지정했었던 값들: $_list";
-
-  List getOld() {
-    return _list;
-  }
+  Square([int givenGaro = 5, int givenSero = 7])
+    : garo = givenGaro,
+      sero = givenSero;
 }
 
 void main() {
-  var num1 = newInteger();
+  var circle = Circle(6);
+  var square = Square(10, 24);
+  // 추상 클래스는 실체를 가질 수 없다.
+  // 밑의 코드를 작성하면 에러가 난다.
+  // var rect = Rectangle();
 
-  num1.set(2);
-  num1.set(4);
-
-  num1.activated = false;
-
-  num1.set(6);
-  num1.set(8);
-
-  num1.activated = true;
-  num1.set(8);
+  circle.draw();
+  square.draw();
 }
