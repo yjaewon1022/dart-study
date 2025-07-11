@@ -9,7 +9,7 @@ abstract class Vehicle {
 
 class Boat implements Vehicle {
   @override
-  drive() {
+  void drive() {
     print("보트가 물 위를 떠다닙니다.");
   }
 }
@@ -17,7 +17,7 @@ class Boat implements Vehicle {
 class Car implements Vehicle {
   @override
   drive() {
-    print("자동차가 도로를 달려다닙니다");
+    print("자동차가 도로를 달려다닙니다.");
   }
 }
 
