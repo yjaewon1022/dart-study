@@ -1,38 +1,38 @@
-class NewBox<T> {
-  late dynamic item;
-  // set 을 이용해서 값이 몇 번 바뀌었는지 저장할 용도로 만든 static 변수
-  // 객체가 필요 없고, NewBox 라는 클래스 전체가 공유하는 변수
-  static int changeCount = 0;
+// 동기와 비동기
+// 동기란 무엇인가?
+// 우리가 컴퓨터에게 작업을 주었을 때, 한 번의 작업이 끝날 때 까지 다른 작업을 하지 않고 기다리는 것
 
-  // 우리가 이 클래스를 사용하기로 한 객체 에서만 사용할 수 있는 변수
-  // 객체 = 우리가 main 함수에서 var newNum1 = NewBox(); 이 코드에서 newNum1 을 뜻함.
-  int totalCount = 0;
+// 비동기란 무엇인가?
+// 우리가 컴퓨터에게 작업을 주었을 때, 해당 작업이 끝나지 않아도 다음 작업을 할 수 있게 하는 것
 
-  NewBox(T givenValue) {
-    item = givenValue;
-  }
+// 함수 내에서 await 을 이용하여 비동기 프로그램을 만들고 싶을땐 항상 단짝이 필요로 하는데,
+// async 라는 것을 작성을 해주어야 함.
+// async 를 작성하는 이유 : 컴퓨터에게 이 함수는 비동기로 작업을 할 것이다. 라고 지정하는 것.
 
-  dynamic get() {
-    return item;
-  }
+void main() async {
+  // Future = main 함수를 동작하는 중에 어떤어떤 일을 하게 예약을 할 때 사용하는 문법
+  // delayed = 일정 시간 기다렸다가 실행하겠다.
 
-  void set(dynamic newItem) {
-    item = newItem;
-    changeCount = changeCount + 1;
-    totalCount = totalCount + 1;
-  }
-}
+  // 비동기 사용 방법 :
+  // Future.delayed( 어느 시간 후에, 어떤 동작을 할것이다. );
+  // 어떤 동작을 할 것인지에 대한 함수를 작성할 때에는
+  // 한 줄로 끝나는 함수의 경우, () => print("hello") 이런 식으로 코드를 바로 작성하면 됨.
+  // 여러 줄로 끝나야 하는 경우,
+  // () {
+  //   print('hello');
+  //   print('123123');
+  // }
+  // 과 같이 각 코드마다 ; 을 붙여줘야 함.
 
-void main() {
-  var newBox = NewBox("참돔");
-  var newBox2 = NewBox("참치");
+  print(1 + 1); // 먼저 2를 출력.
 
-  print(newBox.get());
+  // 이 1+1 과 2+2 사이에 하나의 print를 동기로 넣어보자!
+  await Future.delayed(
+    Duration(seconds: 1),
+    () => print("hello"),
+  ); // 1초 뒤에 hello를 출력하는 작업을 추가해라.
 
-  newBox.set(0);
-  newBox2.set(1);
+  print(2 + 2); // 4를 출력
 
-  print("newBox 객체가 변경된 횟수: ${newBox.totalCount}");
-  print("newBox2 객체가 변경된 횟수: ${newBox2.totalCount}");
-  print("NewBox 클래스 전체가 변경된 횟수: ${NewBox.changeCount}");
+  // 예약한 결과인 hello 를 출력
 }
