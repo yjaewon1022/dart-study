@@ -1,13 +1,3 @@
-// 1. Dart는 기본적으로 한 줄씩 차례로 실행하는 "동기적인 언어"입니다.
-
-// 2. 하지만 시간이 오래 걸리는 작업(예: 서버 통신)은 멈추지 않고 넘기기 위해
-//    "비동기"로 처리할 수 있습니다.
-
-// 3. 비동기 처리를 하려면 함수에 async 키워드를 붙이고,
-//    시간이 오래 걸리는 작업 앞에는 await를 붙입니다.
-
-// 4. await는 결과가 나올 때까지 기다렸다가, 다음 줄 코드를 실행합니다.
-
 doBG(int time, var jobEnd) {
   if (time > 0) {
     print("$time 초 남았습니다.");
@@ -26,15 +16,30 @@ class Flag {
   set activated(bool givenFlag) => _flag = givenFlag;
 }
 
+Future<String> serveCustomer() async {
+  print("serveCustomer: 고객 주문 대기중");
+  var customerOrder = await simulateCustomerOrder();
+  print("serveCustomer: 고객의 주문 '$customerOrder' 를 받음");
+
+  return customerOrder;
+}
+
+Future<String> simulateCustomerOrder() {
+  return Future.delayed(Duration(seconds: 2), () => '아이스 커피');
+}
+
 void main() async {
   var finished = Flag(false);
 
-  print("밥 주문하기");
+  print("main: 메인 함수 실행");
   await doBG(5, finished);
+
+  var customerOrder = await serveCustomer();
+  print("main: 고객의 주문을 받음 : $customerOrder");
 
   while (finished.activated == false) {
     await Future.delayed(Duration(seconds: 1));
   }
 
-  print("밥 먹기");
+  print("main: 메인 함수 종료");
 }
