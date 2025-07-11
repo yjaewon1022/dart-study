@@ -1,45 +1,21 @@
-void doBG(int time, var jobEnd) {
-  if (time > 0) {
-    print("$time 초 남았습니다.");
-    Future.delayed(Duration(seconds: 1), () => doBG(time - 1, jobEnd));
-  } else {
-    print("밥이 준비되었습니다.");
-    jobEnd.activated = true;
-  }
-}
+void main() {
+  int num1 = 1;
+  int num2 = 0;
+  int result = 0;
 
-class Flag {
-  late bool _flag;
+  // try = 일단 먼저 실행을 해봐라
+  // catch = try 중 에러가 발생하면, try 실행을 멈추고 catch 이후의 내용을 실행해라.
 
-  Flag(bool givenFlag) : _flag = givenFlag;
-  bool get activated => _flag;
-  set activated(bool givenFlag) => _flag = givenFlag;
-}
+  // try-catch 문법 사용 방법: try {} catch(error) {}
+  try {
+    result = num1 ~/ num2; // 1 ~/ 0
+  } catch (error) {
+    print("catch: $error");
 
-Future<String> serveCustomer() async {
-  print("serveCustomer: 고객 주문 대기중");
-  var customerOrder = await simulateCustomerOrder();
-  print("serveCustomer: 고객의 주문 '$customerOrder' 를 받음");
-
-  return customerOrder;
-}
-
-Future<String> simulateCustomerOrder() {
-  return Future.delayed(Duration(seconds: 2), () => '아이스 커피');
-}
-
-void main() async {
-  var finished = Flag(false);
-
-  print("main: 메인 함수 실행");
-  doBG(5, finished);
-
-  var customerOrder = await serveCustomer();
-  print("main: 고객의 주문을 받음 : $customerOrder");
-
-  while (finished.activated == false) {
-    await Future.delayed(Duration(seconds: 1));
+    num2 = 1;
+    print("catch: num2를 1로 바꾸고 기존 코드를 다시 실행");
+    result = num1 ~/ num2;
   }
 
-  print("main: 메인 함수 종료");
+  print("결과는 : $result 입니다.");
 }
