@@ -1,4 +1,4 @@
-doBG(int time, var jobEnd) {
+void doBG(int time, var jobEnd) {
   if (time > 0) {
     print("$time 초 남았습니다.");
     Future.delayed(Duration(seconds: 1), () => doBG(time - 1, jobEnd));
@@ -32,7 +32,7 @@ void main() async {
   var finished = Flag(false);
 
   print("main: 메인 함수 실행");
-  await doBG(5, finished);
+  doBG(5, finished);
 
   var customerOrder = await serveCustomer();
   print("main: 고객의 주문을 받음 : $customerOrder");
