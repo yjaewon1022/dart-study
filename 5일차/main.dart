@@ -8,6 +8,7 @@ void main() {
 
   // try-catch 문법 사용 방법: try {} catch(error) {}
   // try-on 문법 사용 방법: try {} on 에러이름 {}
+  // finally = try {} catch(error){} 이 모든걸 수행하고 최종적으로 한 번 실행됨.
   try {
     result = num1 ~/ num2; // 1 ~/ 0
   } on UnsupportedError {
@@ -15,7 +16,9 @@ void main() {
     num2 = 1;
     print('on Unsupported Error: num2 의 값을 1로 바꾸고, 재시도합니다.');
     result = num1 ~/ num2;
+  } catch (error) {
+    print("알수 없는 에러가 발생했습니다.");
+  } finally {
+    print("결과는 : $result 입니다.");
   }
-
-  print("결과는 : $result 입니다.");
 }
