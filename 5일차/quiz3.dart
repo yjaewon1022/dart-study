@@ -3,3 +3,23 @@
 // 이후 num의 타입이 string 이 아닐 경우,
 // NoStringException 클래스를 통해 다음의 내용이 출력되게 구현하세요.
 // [해당 값은 문자열이 아닙니다.]
+// try catch 이용
+
+class NoStringException implements Exception {
+  @override
+  String toString() {
+    return "해당 값은 문자열이 아닙니다.";
+  }
+}
+
+void main() {
+  var num = 10;
+
+  try {
+    if (num.runtimeType != String) {
+      throw NoStringException();
+    }
+  } catch (error) {
+    print(error);
+  }
+}
