@@ -37,15 +37,27 @@ Future<List<String>> readFileToList(String filename) async {
 }
 
 void main() async {
-  try {
-    List<String> fileContent = await readFileToList(
-      "C:/Users/user/Desktop/testapp/dart-study/6일차/src.txt",
-    );
+  List<String> fileContent = await readFileToList('./6일차/src.txt');
 
-    for (var fileLine in fileContent) {
-      print(fileLine);
-    }
-  } catch (error) {
-    print(error);
+  var sList = [];
+  var iVar1 = 0;
+  var iVar2 = 0;
+  var count = 0;
+  var dstSink = File("./6일차/dst.txt").openWrite();
+
+  dstSink.write(":=> FILE ACCESSED ${DateTime.now()}\n");
+
+  for (var fileLine in fileContent) {
+    sList = fileLine.split(',');
+    iVar1 = int.parse(sList[0]);
+    iVar2 = int.parse(sList[1]);
+
+    print("$iVar1 x $iVar2 = ${iVar1 * iVar2}\n");
+    dstSink.write("$iVar1 x $iVar2 = ${iVar1 * iVar2}\n");
+    count++;
   }
+
+  dstSink.write(':=> $count ITEMS CALCULATED');
+
+  dstSink.close();
 }
