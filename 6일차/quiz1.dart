@@ -5,7 +5,7 @@
 import 'dart:io';
 
 void main() async {
-  var file = File('./6일차/quiz/temp.txt');
+  var file = File('./quiz/temp.txt');
 
   // 파일에 문자열 저장 (빈칸을 채우세요)
   var sink = _______________________;
