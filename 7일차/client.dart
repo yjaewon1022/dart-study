@@ -3,7 +3,7 @@ import 'dart:convert';
 
 Future main() async {
   var serverIp = InternetAddress.loopbackIPv4.host;
-  var serverPort = 3001;
+  var serverPort = 3000;
   var serverPath;
 
   var httpClient = HttpClient();
