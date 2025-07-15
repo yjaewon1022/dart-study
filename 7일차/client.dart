@@ -15,7 +15,11 @@ Future main() async {
 
   print("|-> [step.1] GET /");
   serverPath = "";
+  // serverIp, serverPort, serverPath 등의 서버 접속정보를 이용해서
+  // get Request를 전송하겠다.
   httpRequest = await httpClient.get(serverIp, serverPort, serverPath);
+
+  // 보낸 request를 close() 해줘야 해당 request에 대한 response 를 가져올 수 있다.
   httpResponse = await httpRequest.close();
   httpResponseContent = await utf8.decoder.bind(httpResponse).join();
   printHttpContentInfo(httpResponse, httpResponseContent);
