@@ -68,7 +68,7 @@ void httpGetHandler(HttpRequest request) async {
   await request.response.close();
 }
 
-void httpPutHanlder(var addr, var port, HttpRequest request) async {
+void httpPutHandler(var addr, var port, HttpRequest request) async {
   var content = await utf8.decoder.bind(request).join();
   var file = await File(request.uri.path.substring(1)).openWrite();
   print("\> content         : ${content}");
@@ -118,4 +118,31 @@ void httpDeleteHandler(HttpRequest request) async {
   await request.response.close();
 }
 
-Future main() async {}
+Future main() async {
+  var server = await HttpServer.bind(InternetAddress.loopbackIPv4, 3000);
+
+  printHttpServerActivated(server);
+
+  await for (HttpRequest request in server) {
+    printHttpRequestInfo(request);
+
+    try {
+      switch (request.method) {
+        case 'GET':
+          httpGetHandler(request);
+          break;
+        case 'PUT':
+          httpPutHandler(server.address.address, server.port, request);
+          break;
+        case 'POST':
+          httpPostHandler(request);
+          break;
+        case 'DELETE':
+          httpDeleteHandler(request);
+          break;
+        default:
+          print("\$ Exception in http request processing");
+      }
+    } catch (error) {}
+  }
+}
