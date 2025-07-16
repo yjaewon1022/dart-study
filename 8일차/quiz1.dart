@@ -1,5 +1,7 @@
 // 기존에 학습했던 http 코드들을 참고하여 사용자를 CRUD 할 수 있는 RESTful 프로그램을 작성하고자 합니다.
 // 다음의 코드들을 참고하여 RESTful 프로그램을 완성하세요.
+// 서버의 포트는 3000번 포트를 이용하며,
+// 각 API들은 /user 를 이용하여 호출이 되어야 합니다.
 
 import 'dart:convert';
 import 'dart:io';
